@@ -1,0 +1,31 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CantinaSimples.Web.Models.BindingModels
+{
+    public class MovimentoEstoqueBindingModel : IValidatableObject
+    {
+        public int? Id { get; set; }
+
+        [Required]
+        public int? IdProduto { get; set; }
+
+        public int Quantidade { get; set; }
+
+        public DateTime? Data { get; set; }
+
+        public string Observacao { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (Quantidade == 0)
+            {
+                yield return new ValidationResult("A quantidade não pode ser zero.", new[] { "Quantidade" });
+            }
+        }
+    }
+}
